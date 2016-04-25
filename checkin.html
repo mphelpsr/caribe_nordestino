@@ -36,190 +36,8 @@
         <script type="text/javascript" src="js/jquery.validate.min.js"></script>
         <script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
 
-        <script lang="javascript">
-            $(document).ready( function() {
-                
-                
-                $('.form-horizontal').formValidation({
-                icon: {
-                    valid: 'glyphicon glyphicon-ok',
-                    invalid: 'glyphicon glyphicon-remove',
-                    validating: 'glyphicon glyphicon-refresh'
-                },
-                err: {
-                    container: 'tooltip'
-                },
-                
-                fields: {
-                    nome_cliente: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Qual é seu nome? =)'
-                            }
-                        }
-                    },
-                    email_cliente: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Qual seu e-mail? =)'
-                            },
-                            emailAddress: {
-                                message: 'Ops! Este não é um e-mail válido =('
-                            }
-                        }
-                    },
-                    qtd_passageiros: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Quantos passageiros? =)'
-                            }
-                        }
-                    },
-                    rd_trecho: {
-                        validators: {
-                            notEmpty: {
-                                message: 'Ida e volta com nós? =)'
-                            }
-                        }
-                    }
-                    
-                }
-        })
-                .on('success.form.fv', function(e) {
-                            $.ajax({
-                                type: "POST",
-                                url: "http://localhost:3000/tickets",
-                                data: $('.form-horizontal').serialize(),
-                                success: function (retorno) {								
-                                    alert(retorno);						
-                                },
-                                error: function (retorno) {
-                                    alert(retorno);
-                                }
-                            });
-                });
-                /**
-                 * Definicao calendario
-                */
-                $("#calendario").datepicker({
-                    dateFormat: 'dd-mm-yy',
-                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-                });
 
-                $("#calendario2").datepicker({
-                    dateFormat: 'dd-mm-yy',
-                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-                });
-
-                $("#calendario3").datepicker({
-                    dateFormat: 'dd-mm-yy',
-                    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'],
-                    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
-                    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
-                    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
-                    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-                });                                
-                
-                /**
-                 * Mascara de hora
-                */
-                $("#horario_origem_ida").mask('99:99');
-                $("#horario_origem_ida_2").mask('99:99');
-                $("#horario_origem_volta").mask('99:99');
-                
-                
-                /**
-                 * Definição do comportamento do formulario
-                 */
-                
-                function id(el) {
-                    return document.getElementById(el);
-                }
-                function mostra(element) {
-                    if (element) {
-                        if(element == 'horario_ida'   || element == 'data_ida' 
-                        || element == 'horario_volta' || element == 'data_volta'
-                        || element == 'horario_ida_2' || element == 'data_ida_2' 
-                        || element == 'trajeto_ida'   || element == 'trajeto_destino'
-                        || element == 'trajeto_ida_1'   || element == 'trajeto_destino_1'
-                        || element == 'trajeto_ida_2'   || element == 'trajeto_destino_2'){
-                            id(element).style.display = 'block';
-                        }else{
-                            id(element.value).style.display = 'block';    
-                        }
-                        
-                    }
-                }
-                function esconde_todos($element, tagName) {
-                    var $elements = $element.getElementsByTagName(tagName),
-                        i = $elements.length;
-                    while(i--) {
-                        $elements[i].style.display = 'none';
-                    }
-                }
-                window.addEventListener('load', function() {
-                    var $ida = id('ida'),
-                        $volta = id('volta'),
-                        $trecho  = id('trechos');
-
-                    //mostrando no onload da página
-                    esconde_todos(id('trecho_ida'), 'div');
-                    mostra(document.querySelector('input[name="rd_trecho"]:checked'));
-
-
-                    //mostrando ao clicar no radio
-                    var $radios = document.querySelectorAll('input[name="rd_trecho"]');
-                    $radios = [].slice.call($radios);
-
-                    $radios.forEach(function($each) {
-                        $each.addEventListener('click', function() {
-                            esconde_todos(id('trecho_ida'), 'div');
-                            esconde_todos(id('horario_ida'), 'div');
-                            esconde_todos(id('data_ida'), 'div');
-                            esconde_todos(id('horario_volta'), 'div');
-                            esconde_todos(id('data_volta'), 'div');
-                            mostra(this);
-                            if(this.value == 'ida'){
-                                //mostra('ida');
-                                mostra('horario_ida');
-                                mostra('data_ida');
-                                mostra('trajeto_ida');
-                                mostra('trajeto_destino'); 
-                                
-                            }else{
-                                mostra('horario_ida');
-                                mostra('horario_ida_2');
-                                mostra('data_ida_2');
-                                mostra('data_ida');
-                                mostra('horario_volta');
-                                mostra('data_volta');
-                                mostra('trajeto_ida_1');
-                                mostra('trajeto_destino_1');
-                                mostra('trajeto_ida_2'); 
-                                mostra('trajeto_destino_2');
-                                
-                            }
-                            
-                        });
-                    });
-                });
-                
-            });
-            
-            
-                
-                
-        </script>
-    
-    <!-- fim - exclusivo para o formulario -->
+        <!-- fim - exclusivo para o formulario -->
 
 	</head>
 
@@ -263,24 +81,15 @@
 					<div class="container">
 						<div class="row">
                             <div class="col-md-12 wow fadeInLeft">
-                                <h2 class="section-title">Informações</h2>
+                                <h2 class="section-title">Checkin</h2>
 								<ul class="list-fa">
 									<div class="pagination2 wow fadeInUp">
-                                        Nossos transfers são realizados com veículos privativos e serão exclusivos para você. Isso não significa que será mais caro que vans convencionais, mas entendemos que voê quer exclusividade e conforto. Nossos veículos são revisados e nossos motoristas, moradores de Maragogi. Assim, você curte Maragogi e região, com quem conhece a cidade 😃<br/>
+                                        Insira o codigo que recebeu por e-mail e informe as demais informações para finalizar seu agendamento.<br/><br/>
+                                        <strong>Importante: as informações fornecidas na cotação, estão bloqueadas para edição. Se há alguma informação errada ou precisa alterá-la, envie um e-mail para informacoes@caribenordestino.com.br</strong> 
                                     </div>
 								</ul>
                             </div>
-							<div class="col-md-14 wow fadeInLeft">
-                                <h2 class="section-title">Como funciona nosso sistema de transfers?</h2>
-								<ul class="list-fa">
-									<div class="pagination2 wow fadeInUp">
-                                        <span class="page-numbers">1</span> Você informa nome e e-mail, junto com sua data de check-in, check-out (caso seja ida e volta) e mais algumas informações; <br/>
-                                        <span class="page-numbers">2</span> Nossos motoristas recebem sua cotação e confirmam/não disponibilidade do veiculo para as datas que informou; <br/> 
-                                        <span class="page-numbers">3</span> Caso confirme disponibilidade, você receberá em alguns minutos um código para continuar sua reserva que já está garantida; <br/> 
-                                        <span class="page-numbers">4</span> Caso não tivermos disponibilidade no momento. não se preocupe: encaminharemos sua cotação para empresas parceiras na cidade, para que você não fique sem seus transfers 😃
-                                    </div>
-								</ul>
-                            </div>
+							
                             <div class="col-md-13 wow fadeInLeft">
                                 <!-- Inicio formulario -->
         
@@ -435,11 +244,6 @@
                                                     <div class="form-group">
                                                         <div class="col-lg-offset-3 col-lg-3">
                                                             <button type="submit" class="btn btn-primary">Enviar</button>
-                                                        </div>
-                                                    </div>
-                                                    <div id="enviado" class="form-group">
-                                                        <div class="col-lg-offset-3 col-lg-3">
-                                                            <label class="col-lg-5 control-label"><font color="green">Enviado com sucesso!</font></label>
                                                         </div>
                                                     </div>
                                                 </form>
