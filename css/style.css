@@ -257,8 +257,8 @@ table {
 
 @font-face {
   font-family: 'icomoon';
-  src: url("fonts/icomoon.eot?odkk1s");
-  src: url("fonts/icomoon.eot?#iefixodkk1s") format("embedded-opentype"), url("fonts/icomoon.woff?odkk1s") format("woff"), url("fonts/icomoon.ttf?odkk1s") format("truetype"), url("fonts/icomoon.svg?odkk1s#icomoon") format("svg");
+  src: url("../fonts/icomoon.eot?odkk1s");
+  src: url("../fonts/icomoon.eot?#iefixodkk1s") format("embedded-opentype"), url("../fonts/icomoon.woff?odkk1s") format("woff"), url("../fonts/icomoon.ttf?odkk1s") format("truetype"), url("../fonts/icomoon.svg?odkk1s#icomoon") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -578,7 +578,7 @@ table {
   content: " ";
   width: 6px;
   height: 5px;
-  background: url(images/small-arrow.png) no-repeat;
+  background: url(../images/small-arrow.png) no-repeat;
   position: absolute;
   left: 0;
   top: 10px;
@@ -636,7 +636,7 @@ table {
   content: " ";
   width: 23px;
   height: 11px;
-  background: url(images/long-arrow.png) no-repeat;
+  background: url(../images/long-arrow.png) no-repeat;
   position: absolute;
   right: 10px;
   top: 0;
@@ -736,7 +736,7 @@ table {
   -webkit-appearance: none;
   appearance: none;
   color: #818c8d;
-  background: url(images/long-arrow.png) no-repeat 95% center;
+  background: url(../images/long-arrow.png) no-repeat 95% center;
 }
 @media screen and (max-width: 480px) {
   .filter-links a {
