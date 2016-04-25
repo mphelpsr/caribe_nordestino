@@ -4,27 +4,27 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1">
-		
+
 		<title>Caribe Nordestino</title>
 		<!-- Loading third party fonts -->
-		
+
 		<link href="fonts/font-awesome.min.css" rel="stylesheet" type="text/css">
 		<!-- Loading main css file -->
 		<link rel="stylesheet" href="css/animate.min.css">
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="shortcut icon" href="http://caribenordestino.com.br/images/favicon.ico"/>
-        
+
         <link href="css/style2.css" rel="stylesheet" type="text/css"/>
 		<!--[if lt IE 9]>
 		<script src="js/ie-support/html5.js"></script>
 		<script src="js/ie-support/respond.js"></script>
 		<![endif]-->
-        
+
         <!-- Inicio estilo formulario -->
         <link rel="stylesheet" href="./css/bootstrap.css"/>
         <link rel="stylesheet" href="./css/formValidation.css"/>
         <link rel="stylesheet" href="./css/redmond/jquery-ui-1.10.1.custom.css" />
-        
+
         <script type="text/javascript" src="./js/jquery-1.10.2.min.js"></script>
         <script type="text/javascript" src="./js/jquery-ui.js"></script>
         <script type="text/javascript" src="./js/bootstrap.min.js"></script>
@@ -37,9 +37,10 @@
         <script type="text/javascript" src="js/jquery.maskedinput.min.js"></script>
 
         <script lang="javascript">
+
             $(document).ready( function() {
-                
-                
+
+
                 $('.form-horizontal').formValidation({
                 icon: {
                     valid: 'glyphicon glyphicon-ok',
@@ -49,7 +50,7 @@
                 err: {
                     container: 'tooltip'
                 },
-                
+
                 fields: {
                     nome_cliente: {
                         validators: {
@@ -82,7 +83,7 @@
                             }
                         }
                     }
-                    
+
                 }
         })
                 .on('success.form.fv', function(e) {
@@ -90,8 +91,8 @@
                                 type: "POST",
                                 url: "http://localhost:3000/tickets",
                                 data: $('.form-horizontal').serialize(),
-                                success: function (retorno) {								
-                                    alert(retorno);						
+                                success: function (retorno) {
+                                    alert(retorno);
                                 },
                                 error: function (retorno) {
                                     alert(retorno);
@@ -126,36 +127,37 @@
                     dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
                     monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
                     monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez']
-                });                                
-                
+                });
+
                 /**
                  * Mascara de hora
                 */
                 $("#horario_origem_ida").mask('99:99');
                 $("#horario_origem_ida_2").mask('99:99');
                 $("#horario_origem_volta").mask('99:99');
-                
-                
+
+
                 /**
                  * Definição do comportamento do formulario
                  */
-                
+
                 function id(el) {
                     return document.getElementById(el);
                 }
                 function mostra(element) {
                     if (element) {
-                        if(element == 'horario_ida'   || element == 'data_ida' 
+                        if(element == 'horario_ida'   || element == 'data_ida'
                         || element == 'horario_volta' || element == 'data_volta'
-                        || element == 'horario_ida_2' || element == 'data_ida_2' 
+                        || element == 'horario_ida_2' || element == 'data_ida_2'
                         || element == 'trajeto_ida'   || element == 'trajeto_destino'
                         || element == 'trajeto_ida_1'   || element == 'trajeto_destino_1'
-                        || element == 'trajeto_ida_2'   || element == 'trajeto_destino_2'){
+                        || element == 'trajeto_ida_2'   || element == 'trajeto_destino_2'
+												|| element == 'enviado'){
                             id(element).style.display = 'block';
                         }else{
-                            id(element.value).style.display = 'block';    
+                            id(element.value).style.display = 'block';
                         }
-                        
+
                     }
                 }
                 function esconde_todos($element, tagName) {
@@ -172,6 +174,7 @@
 
                     //mostrando no onload da página
                     esconde_todos(id('trecho_ida'), 'div');
+										esconde_todos(id('enviado'),'div');
                     mostra(document.querySelector('input[name="rd_trecho"]:checked'));
 
 
@@ -186,14 +189,15 @@
                             esconde_todos(id('data_ida'), 'div');
                             esconde_todos(id('horario_volta'), 'div');
                             esconde_todos(id('data_volta'), 'div');
+
                             mostra(this);
                             if(this.value == 'ida'){
                                 //mostra('ida');
                                 mostra('horario_ida');
                                 mostra('data_ida');
                                 mostra('trajeto_ida');
-                                mostra('trajeto_destino'); 
-                                
+                                mostra('trajeto_destino');
+
                             }else{
                                 mostra('horario_ida');
                                 mostra('horario_ida_2');
@@ -203,38 +207,39 @@
                                 mostra('data_volta');
                                 mostra('trajeto_ida_1');
                                 mostra('trajeto_destino_1');
-                                mostra('trajeto_ida_2'); 
+                                mostra('trajeto_ida_2');
                                 mostra('trajeto_destino_2');
-                                
+
                             }
-                            
+
                         });
                     });
                 });
-                
+
             });
-            
-            
-                
-                
+
+
+
+
         </script>
-    
+
     <!-- fim - exclusivo para o formulario -->
+
 
 	</head>
 
 	<body>
-		
+
 		<div id="site-content">
-			
+
 			<header class="site-header wow fadeInDown">
-                
+
 				<div class="container">
 					<div class="header-content">
 						<div class="branding">
 							<img src="images/logo.jpg" height="70" width="80" alt="Caribe Nordestino" class="logo">
 						</div>
-						
+
 						<nav class="main-navigation">
 							<button type="button" class="menu-toggle"><i class="fa fa-bars"></i></button>
 							<ul class="menu">
@@ -245,7 +250,7 @@
                                 <li class="menu-item"><a href="checkin.html">Checkin</a></li>
 							</ul>
 						</nav>
-						
+
 						<div class="social-links">
 							<a href="javascript:void(window.open('www.facebook.com/caribenordestino','_blank'));" class="facebook"><i class="fa fa-facebook"></i></a>
 							<a href="www.twitter.com/caribenordeste" class="twitter"><i class="fa fa-twitter"></i></a>
@@ -275,38 +280,38 @@
 								<ul class="list-fa">
 									<div class="pagination2 wow fadeInUp">
                                         <span class="page-numbers">1</span> Você informa nome e e-mail, junto com sua data de check-in, check-out (caso seja ida e volta) e mais algumas informações; <br/>
-                                        <span class="page-numbers">2</span> Nossos motoristas recebem sua cotação e confirmam/não disponibilidade do veiculo para as datas que informou; <br/> 
-                                        <span class="page-numbers">3</span> Caso confirme disponibilidade, você receberá em alguns minutos um código para continuar sua reserva que já está garantida; <br/> 
+                                        <span class="page-numbers">2</span> Nossos motoristas recebem sua cotação e confirmam/não disponibilidade do veiculo para as datas que informou; <br/>
+                                        <span class="page-numbers">3</span> Caso confirme disponibilidade, você receberá em alguns minutos um código para continuar sua reserva que já está garantida; <br/>
                                         <span class="page-numbers">4</span> Caso não tivermos disponibilidade no momento. não se preocupe: encaminharemos sua cotação para empresas parceiras na cidade, para que você não fique sem seus transfers 😃
                                     </div>
 								</ul>
                             </div>
                             <div class="col-md-13 wow fadeInLeft">
                                 <!-- Inicio formulario -->
-        
+
                                 <div class="container">
                                     <div class="row">
                                         <section>
                                             <div class="col-lg-6 col-lg-offset-0">
 
                                                 <form id="defaultForm" method="post" class="form-horizontal">
-                                                
-                                                
+
+
                                                     <div class="form-group">
                                                         <label class="col-lg-3 control-label">nome</label>
                                                         <div class="col-lg-8">
                                                             <input class="form-control" name="nome_cliente" type="text" />
                                                         </div>
-                                                    </div>    
-                                                    
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label class="col-lg-3 control-label">e-mail</label>
                                                         <div class="col-lg-7">
                                                             <input class="form-control" name="email_cliente" type="email" />
                                                         </div>
-                                                    </div>                
-                                                    
-                                                    <div class="form-group"> 
+                                                    </div>
+
+                                                    <div class="form-group">
                                                         <label class="col-lg-3 control-label">trecho</label>
                                                         <div class="col-lg-5">
                                                             <div class="radio">
@@ -321,14 +326,14 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div id="trecho_ida" class="form-group">
                                                         <div id="ida"  class="form-group">
                                                             <label class="col-lg-3 control-label">data ida</label>
                                                             <div class="col-lg-3" id="data_ida">
                                                                 <input name="data_check_ida" type="text" class="form-control" id="calendario"/>
                                                             </div>
-                                                            
+
                                                             <label class="col-lg-3 control-label">horario ida</label>
                                                             <div class="col-lg-2" id="horario_ida">
                                                                 <input id="horario_origem_ida" name="horario_origem" type="text" class="form-control"/>
@@ -354,14 +359,14 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                        
-                                                        <div id="volta" class="form-group">   
-                                                            
+
+                                                        <div id="volta" class="form-group">
+
                                                             <label class="col-lg-3 control-label">data ida</label>&nbsp;&nbsp;
                                                             <div class="col-lg-3" id="data_ida_2">
                                                                 <input name="data_check_ida" type="text" class="form-control" id="calendario2"/>
                                                             </div>
-                                                            
+
                                                             <label class="col-lg-3 control-label">horario ida</label>&nbsp;&nbsp;
                                                             <div class="col-lg-2" id="horario_ida_2">
                                                                 <input id="horario_origem_ida_2" name="horario_origem" type="text" class="form-control"/>
@@ -386,12 +391,12 @@
                                                                     <option name="Maragogi">Maragogi</option>
                                                                 </select>
                                                             </div>
-                                                                                                                     
+
                                                             <label class="col-lg-3 control-label">data volta</label>&nbsp;&nbsp;
                                                             <div class="col-lg-3" id="data_volta">
                                                                 <input name="data_check_volta" type="text" class="form-control" id="calendario3"/>
                                                             </div>
-                                                            
+
                                                             <label class="col-lg-3 control-label">horario volta</label>&nbsp;&nbsp;
                                                             <div class="col-lg-2" id="horario_volta">
                                                                 <input id="horario_origem_volta" name="horario_volta" type="text" class="form-control"/>
@@ -417,49 +422,49 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-                                                    </div>                                                  
+                                                    </div>
                                                     <div class="form-group">
                                                         <label class="col-lg-3 control-label">qtd. passageiros</label>
                                                         <div class="col-lg-2">
                                                             <input class="form-control" name="qtd_passageiros" type="text" maxlength="1"/>
                                                         </div>
-                                                    </div>                                                    
-                                                    
+                                                    </div>
+
                                                     <div class="form-group">
                                                         <label class="col-lg-3 control-label">observacoes</label>
                                                         <div class="col-lg-8">
                                                             <textarea class="form-control" name="observacoes" rows="8" id="observacoes"></textarea>
                                                         </div>
-                                                    </div>    
+                                                    </div>
 
                                                     <div class="form-group">
                                                         <div class="col-lg-offset-3 col-lg-3">
                                                             <button type="submit" class="btn btn-primary">Enviar</button>
                                                         </div>
                                                     </div>
-                                                    <div id="enviado" class="form-group">
-                                                        <div class="col-lg-offset-3 col-lg-3">
-                                                            <label class="col-lg-5 control-label"><font color="green">Enviado com sucesso!</font></label>
-                                                        </div>
+
+                                                    <div class="form-group" id="enviado" name="enviado">
+                                                        <label class="col-lg-3 control-label">&nbsp;</label>
+                                                        <label><font color="green">Cotação enviada com sucesso. Aguarde nosso contato =)</font></label>
                                                     </div>
                                                 </form>
                                             </div>
                                         </section>
                                     </div>
                                 </div>
-                                
-                
+
+
                                 <!-- Fim formulario -->
 							</div>
-							
-							
+
+
 						</div>
 
 					</div>
 
 				</div>
 
-				
+
 			</main> <!-- .content -->
 
 			<footer class="site-footer wow fadeInUp">
@@ -474,12 +479,12 @@
 							</div>
 							<div class="col-md-3 col-sm-6">
 								<div class="widget">
-								
+
 								</div>
 							</div>
 							<div class="col-md-3 col-sm-6">
 								<div class="widget">
-								
+
 								</div>
 							</div>
 							<div class="col-md-3 col-sm-6">
@@ -518,7 +523,7 @@
 		</div> <!-- #site-content -->
 		<script src="js/min/plugins-min.js"></script>
 		<script src="js/min/app-min.js"></script>
-		
+
 	</body>
 
 </html>
